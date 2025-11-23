@@ -3,9 +3,11 @@ import './App.css'
 function App() {
 
   return (
-    <>
-      <h1>Hello <World></World></h1>
-    </>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold text-blue-600 underline">
+        Funcionou! O Tailwind está ativo.
+      </h1>
+    </div>
   )
 }
 
