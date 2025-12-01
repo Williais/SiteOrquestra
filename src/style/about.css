@@ -1,0 +1,146 @@
+.content{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+
+    & p{
+        color: #0f172aa4;
+    }
+}
+.sobre{
+    max-width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 8%;
+    gap: 4em;
+}
+
+.sobre-orquestra h1{
+    font-family: "Merriweather", serif;
+    font-size: 2.7em;
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+.historia-projeto{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.historia-projeto .nossa-historia{
+    text-align: left;
+    & h2{
+        font-family: "Merriweather", serif;
+        margin-bottom: 15px;
+        color: #0f172a;
+    }
+
+    & p{
+        font-size: 0.9em;
+    }
+}
+
+.projeto-cefec{
+    width: 100%;
+    background-color: #21469e10;
+    padding: 20px 27px;
+    text-align: left;
+    border-radius: 10px;
+    border: solid #21479e21 1px;
+
+    & h2{
+        font-family: "Merriweather", serif;
+        margin-bottom: 15px;
+        color: #0f172a;
+    }
+
+    & p{
+        margin-bottom: 15px;
+
+        & a{
+        color: #f59e0b;
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    }
+    
+    & button{
+        padding: 10px 20px;
+        outline: none;
+        border: none;
+        background-color: #0f172a;
+        color: white;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+}
+
+.maestro{
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+
+    & .img-maestro img{
+        border-radius: 20px;
+        box-shadow: 3px 2px 10px#0f172a3e ;
+    }
+
+    & h1{
+        font-family: "Merriweather", serif;
+        margin-bottom: 15px;
+        color: #0f172a;
+    }
+
+    & h3{
+        font-family: "Merriweather", serif;
+        margin-bottom: 15px;
+        color: #f59e0b;
+        font-weight: 400;
+    }
+}
+
+.musicos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+.container-musicos{
+    display: flex;
+    gap: 30px;
+
+    & .musico .circulo-musico{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #3d67c937;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        box-shadow: 2px 1px 10px#0f172a29 ;
+    }
+
+    & .musico h4{
+        font-family: "Merriweather", serif;
+        font-weight: 800;
+    }
+
+    & .musico p{
+        font-size: 0.8em;
+    }
+}

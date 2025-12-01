@@ -4,8 +4,8 @@ import orq from '../assets/foto_Orquestra.jpg'
 
 function Hero() {
     return(
-        <div id='container-hero'>
-            <img src={orq} alt="foto aleatoria da orquestra" />
+        <div id='container-hero' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${orq})`}}>
+
             <div className='container'>
                 <h1>Orquestra Filarmônica do CEFEC</h1>
                 <p>Música como instrumento de transformação social</p>

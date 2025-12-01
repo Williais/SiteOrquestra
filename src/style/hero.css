@@ -1,10 +1,13 @@
 
-img{
-    height: 100vh;
+#container-hero{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
-    z-index: -999999;
-    position: absolute;
-    opacity: 20%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container{
@@ -12,12 +15,14 @@ img{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    max-width: 90%;
 }
 
 .container h1{
-    margin-top: 20%;
+    font-family: "Merriweather", serif;
     color: white;
-    font-size: 2.5em;
+    font-size: 2.9em;
     font-weight: bold;
 }
 
@@ -32,10 +37,12 @@ img{
     background-color: #f59e0b;
     outline: none;
     border: none;
-    padding: 10px 25px;
+    padding: 15px 30px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 
     &:hover{
         background-color: #ffb535
