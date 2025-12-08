@@ -1,23 +1,31 @@
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
 import '../style/header.css'
 
 function Header() {
 
-    return(
-        <header>
-            <div>
-                <a id="logo" href="/">OFC</a>
-            </div>
+    const [isOpen, setIsOpen] = useState(false)
 
-            <nav>
-                <ul>
-                    <li><a href="/">Início</a></li>
-                    <li><a href="/">Sobre</a></li>
-                    <li><a href="/">Agenda</a></li>
-                    <li><a href="/">Galeria</a></li>
-                    <li><a href="/">Apoie</a></li>
-                    <li><a href="/" className='demonstrativo'>Um projeto Cefec</a></li>
-                </ul>
-            </nav>
+    const toggleMenu = () => {
+        setIsOpen(!isOpen)
+    }
+
+    return (
+        <header>
+            <a href="#" id="logo">OFC</a>
+            <ul className={isOpen ? "nav-menu active" : "nav-menu"}>
+
+                <li><a href="#Hero" onClick={toggleMenu}>Início</a></li>
+                <li><a href="#About" onClick={toggleMenu}>Sobre</a></li>
+                <li><a href="#Agenda" onClick={toggleMenu}>Agenda</a></li>
+                <li><a href="#Galeria" onClick={toggleMenu}>Galeria</a></li>
+                <li><a href="#Apoie" onClick={toggleMenu}>Apoie</a></li>
+
+            </ul>
+
+            <div className="hamburger" onClick={toggleMenu}>
+                {isOpen ? <X size={30} color="#0f172a"/> : <Menu size={30} color="#0f172a"/>}
+            </div>
         </header>
     )
 }

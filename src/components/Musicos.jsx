@@ -6,13 +6,18 @@ function Musicos() {
     const [listaMusicos, setListaMusicos] = useState([])
     const carouselRef = useRef(null)
     const pesosInstrumentos = {
-        "Violino": 1,
         "Violino I": 1,
-        "Violino II": 1,
-        "Viola": 2,
-        "Violoncelo": 3,
-        "Contrabaixo": 4,
-        "Baixo-Eletrico": 5,
+        "Violino II": 2,
+        "Viola": 3,
+        "Violoncelo": 4,
+        "Contrabaixo": 5,
+        "Baixo-Eletrico": 6,
+        "Flauta-Transversal": 7,
+        "Clarinete": 8,
+        "Trombone": 9,
+        "Trompete": 10,
+        "Sax-Alto": 11,
+        "Sax-Tenor": 12,
     };
 
     useEffect(() => {
@@ -31,7 +36,6 @@ function Musicos() {
                     return a.nome.localeCompare(b.nome);
                 });
 
-                console.log("LISTA ORDENADA:", dadosOrdenados);
                 setListaMusicos(dadosOrdenados)
 
             } catch (error) {
@@ -43,13 +47,13 @@ function Musicos() {
 
     const handleScrollRight = () => {
         if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+            carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' });
         }
     }
 
     const handleScrollLeft = () => {
         if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+            carouselRef.current.scrollBy({ left: -600, behavior: 'smooth' });
         }
     }
 
