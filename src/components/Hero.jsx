@@ -1,5 +1,5 @@
 import '../style/hero.css'
-import orq from '../assets/foto_Orquestra.jpg'
+import orq from '../assets/Gemini_Generated_Image_2nthbv2nthbv2nth.png'
 
 
 function Hero() {
