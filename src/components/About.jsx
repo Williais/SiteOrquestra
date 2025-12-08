@@ -1,5 +1,6 @@
 import '../style/about.css'
 import sadraque from '../assets/IMG_1135.JPG'
+import Musicos from './Musicos'
 
 function About() {
     return(
@@ -37,42 +38,7 @@ function About() {
                         </p>
                     </div>
                 </div>
-                <div className="musicos">
-                    <h2>Nossos Músicos</h2>
-                    {/*aqui será o components Nossos Musicos*/}
-
-                    <div className="container-musicos">
-                        <div className="musico">
-                            <div className="circulo-musico">Músico</div>
-                            <h4>Nome do Músico</h4>
-                            <p>instrumento</p>
-                        </div>
-
-                        <div className="musico">
-                            <div className="circulo-musico">Músico</div>
-                            <h4>Nome do Músico</h4>
-                            <p>instrumento</p>
-                        </div>
-
-                        <div className="musico">
-                            <div className="circulo-musico">Músico</div>
-                            <h4>Nome do Músico</h4>
-                            <p>instrumento</p>
-                        </div>
-
-                        <div className="musico">
-                            <div className="circulo-musico">Músico</div>
-                            <h4>Nome do Músico</h4>
-                            <p>instrumento</p>
-                        </div>
-
-                        <div className="musico">
-                            <div className="circulo-musico">Músico</div>
-                            <h4>Nome do Músico</h4>
-                            <p>instrumento</p>
-                        </div>
-                    </div>
-                </div>
+                <Musicos/>
             </section>
         </div>
     )
