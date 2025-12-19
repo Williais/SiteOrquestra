@@ -1,15 +1,18 @@
 import '../style/hero.css'
-import orq from '../assets/Gemini_Generated_Image_2nthbv2nthbv2nth.png'
-
 
 function Hero() {
     return(
-        <div id='container-hero' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${orq})`}}>
-
+        <div id='container-hero'>
             <div className='container'>
-                <h1>Orquestra Filarmônica do CEFEC</h1>
-                <p>Música como instrumento de transformação social</p>
-                <button>Um pouco sobre nós</button>
+                <p className='title-bold'>MÚSICA</p>
+                <p className='transforma'>TRANSFORMA</p>
+                <p className='title-bold'>VIDAS</p>
+
+                <p className='text'>A Orquestra Filarmônica do CEFEC une a excelência artística ao impacto social no coração da Paraíba.</p>
+            </div>
+
+            <div className='hero-image-placeholder'>
+                <span>Orchestral Silhouette</span> 
             </div>
             
         </div>

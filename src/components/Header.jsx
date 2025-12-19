@@ -15,12 +15,10 @@ function Header() {
             <a href="#" id="logo">OFC</a>
             <ul className={isOpen ? "nav-menu active" : "nav-menu"}>
 
-                <li><a href="#Hero" onClick={toggleMenu}>Início</a></li>
-                <li><a href="#About" onClick={toggleMenu}>Sobre</a></li>
-                <li><a href="#Agenda" onClick={toggleMenu}>Agenda</a></li>
+                <li><a href="#Hero" onClick={toggleMenu}>A Orquestra</a></li>
+                <li><a href="#About" onClick={toggleMenu}>Nossos Músicos</a></li>
+                <li><a href="#Agenda" onClick={toggleMenu}>Concertos</a></li>
                 <li><a href="#Galeria" onClick={toggleMenu}>Galeria</a></li>
-                <li><a href="#Apoie" onClick={toggleMenu}>Apoie</a></li>
-
             </ul>
 
             <div className="hamburger" onClick={toggleMenu}>

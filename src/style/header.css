@@ -1,7 +1,7 @@
 header {
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 120px;
     background-color: rgba(255, 255, 255, 0.95);
     align-items: center;
     height: 70px;
@@ -16,8 +16,9 @@ header {
 #logo {
     font-size: 1.9em;
     text-decoration: none;
-    color: #0f172a;
-    font-weight: bold;
+    color: #1a1a1a;
+    font-weight: 800;
+    font-family: 'Playfair Display';
 }
 
 .hamburger {
@@ -38,13 +39,15 @@ li {
 
 li a {
     text-decoration: none;
-    font-size: 0.9em;
-    color: #0f172ab0;
+    font-family: 'Lato';
+    font-weight: bold;
+    font-size: 1em;
+    color: #1a1a1ad6;
     transition: 0.3s;
 }
 
 li a:hover {
-    color: #f59e0b;
+    text-decoration: line-through;
 }
 
 @media (max-width: 768px) {
