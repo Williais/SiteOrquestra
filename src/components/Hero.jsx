@@ -1,6 +1,24 @@
+import { useState, useEffect } from 'react'
 import '../style/hero.css'
 
+import foto01 from '../assets/fotoCarrossel/foto01.png'
+import foto02 from '../assets/fotoCarrossel/foto02.jpg'
+import foto03 from '../assets/fotoCarrossel/foto03.jpg'
+
+const localImagem = [foto01, foto02, foto03]
+
 function Hero() {
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    useEffect(() => {
+        const intervalo = setInterval(() => {
+
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % localImagem.length)
+        }, 4000)
+
+        return () => clearInterval(intervalo)
+    }, [])
+
     return(
         <div id='container-hero'>
             <div className='container'>
@@ -12,9 +30,12 @@ function Hero() {
             </div>
 
             <div className='hero-image-placeholder'>
-                <span>Orchestral Silhouette</span> 
+                {localImagem.map((imagem, index) => (
+                    <img key={index} src={imagem} alt={`imagem ${index}`} className={`slide-image ${index === currentIndex ? 'active' : ''}`} />
+                ))}
+
+                <div className="pelicula-fosca"></div>
             </div>
-            
         </div>
     )
 }
