@@ -2,6 +2,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
 import Agenda from './components/Agenda'
+import Musicos from './components/Musicos'
 import './App.css'
 
 
@@ -19,6 +20,9 @@ function App() {
         <About />
       </section>
 
+      <section id="Musicos">
+        <Musicos/>
+      </section>
 
       <section id="Agenda">
         <Agenda/>
