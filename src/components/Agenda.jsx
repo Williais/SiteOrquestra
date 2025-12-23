@@ -1,25 +1,40 @@
 import '../style/agenda.css'
 
 function Agenda() {
+
+    const data = new Date()
+    const ano = data.getFullYear()
+
     return(
         <div>
-            <div className="header-agenda">
-                <h1>Agenda de Concertos</h1>
-            </div>
+            <section className='container-agenda'>
 
-            <div className="container-agenda">
-                <div className='container-data'>
-                    <h1>13</h1>
-                    <h3>DEZ</h3>
-                    <p>19:30</p>
+                <div className="header-agenda">
+                    <h1>Temporada {ano}</h1>
+
+                    <a href="#">VER CALENDÁRIO COMPLETO</a>
                 </div>
 
-                <div className="container-infos">
-                    <h1 className="title">11º Concerto da OFC</h1>
-                    <p className="local"><strong>Local:</strong> Rua do CEFEC, Marcos Moura - Paraíba</p>
-                    <p className="programa"><strong>Programação:</strong> Músicas natalinas e Clássicos Nordestina</p>
+                <div className="content-agenda">
+
+                    <div className='container-data'>
+                        <h1>13</h1>
+                        <h3>DEZEMBRO</h3>
+                    </div>
+
+                    <div className='img-agenda'>
+                    </div>
+
+                    <div className="container-infos">
+                        <h3 className="title">Concerto Especial</h3>
+                        <h2 className="programa">11º Concerto da OFC</h2>
+                        <p className="local">Auditório do CEFEC, 19:30</p>
+                    </div>
+
+                    <button>DETALHES</button>
+
                 </div>
-            </div>
+            </section>
         </div>
     )
 }
