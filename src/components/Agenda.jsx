@@ -34,7 +34,29 @@ function Agenda() {
                     <button>DETALHES</button>
 
                 </div>
+
+                <div className="content-agenda">
+
+                    <div className='container-data'>
+                        <h1>25</h1>
+                        <h3>DEZEMBRO</h3>
+                    </div>
+
+                    <div className='img-agenda'>
+                    </div>
+
+                    <div className="container-infos">
+                        <h3 className="title">Magia Natalina</h3>
+                        <h2 className="programa">Concerto Natalino</h2>
+                        <p className="local">Teatro Santa Rosa, 20:00</p>
+                    </div>
+
+                    <button>DETALHES</button>
+
+                </div>
             </section>
+
+            
         </div>
     )
 }

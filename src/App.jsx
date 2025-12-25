@@ -3,6 +3,8 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Agenda from './components/Agenda'
 import Musicos from './components/Musicos'
+import Galeria from './components/Galeria'
+import Footer from './components/Footer'
 import './App.css'
 
 
@@ -21,13 +23,18 @@ function App() {
       </section>
 
       <section id="Musicos">
-        <Musicos/>
+        <Musicos />
       </section>
 
       <section id="Agenda">
-        <Agenda/>
+        <Agenda />
       </section>
 
+      <section id="Galeria">
+        <Galeria />
+      </section>
+
+      <Footer/>
     </div>
   )
 }
