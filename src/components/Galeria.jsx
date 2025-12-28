@@ -6,6 +6,11 @@ const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
     const [indiceAtual, setIndiceAtual] = useState(0);
 
     useEffect(() => {
+        setIndiceAtual(0);
+    }, [imagens]);
+
+    // 2. Intervalo do slideshow
+    useEffect(() => {
         if (!imagens || imagens.length <= 1) return;
 
         const intervalo = setInterval(() => {
@@ -15,22 +20,30 @@ const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
         return () => clearInterval(intervalo);
     }, [imagens]);
 
-    if (!imagens || imagens.length === 0) return null;
+    const temImagens = imagens && imagens.length > 0;
 
     return (
-        <div className={`grid-item ${classeExtra}`} onClick={() => aoClicar(categoria)}>
-            {imagens.map((img, index) => (
-                <img 
-                    key={img.id}
-                    src={img.url} 
-                    alt={`${categoria} ${index}`}
-                    className={`bg-slide ${index === indiceAtual ? 'ativo' : ''}`}
-                />
-            ))}
+        <div 
+            className={`grid-item ${classeExtra}`} 
+            onClick={() => temImagens && aoClicar(categoria)}
+            style={{ cursor: temImagens ? 'pointer' : 'default' }}
+        >
+            {temImagens ? (
+                imagens.map((img, index) => (
+                    <img 
+                        key={img.id}
+                        src={img.url} 
+                        alt={`${categoria} ${index}`}
+                        className={`bg-slide ${index === indiceAtual ? 'ativo' : ''}`}
+                    />
+                ))
+            ) : (
+                <div style={{width: '100%', height: '100%', background: '#333'}}></div>
+            )}
             
             <div className="overlay">
                 <h3>{categoria}</h3>
-                <p>{imagens.length} fotos</p>
+                <p>{temImagens ? `${imagens.length} fotos` : 'Sem fotos'}</p>
             </div>
         </div>
     );
