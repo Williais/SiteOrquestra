@@ -103,7 +103,20 @@
 
             &:hover{
                 text-decoration: underline;
+
             }
         }
+    }
+}
+
+@media (max-width: 720px) {
+    .content-footer{
+        display: flex;
+        flex-direction: column;
+    }
+    .descricao{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }

@@ -21,7 +21,7 @@ function Footer() {
 
                         <p>R. Governador João Agripino - Santa Rita, PB</p>
                         <p>(83) 98654-4963</p>
-                        <p>ofcoficial@gmail.com</p>
+                        <p>ofcefec@gmail.com </p>
                     </div>
                     <div className="explorar">
                         <h4>EXPLORAR</h4>
