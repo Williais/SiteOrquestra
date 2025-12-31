@@ -142,28 +142,28 @@ function Galeria() {
             
             <div className="grid-bento">
                 <GridSlideshow 
-                    categoria="Main Stage" 
+                    categoria="Palco Principal" 
                     classeExtra="main-stage" 
                     imagens={fotos['Main Stage']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
-                    categoria="Violin" 
+                    categoria="Cordas" 
                     classeExtra="violin"
                     imagens={fotos['Violin']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
-                    categoria="Brass" 
+                    categoria="Sopro" 
                     classeExtra="brass"
                     imagens={fotos['Brass']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
-                    categoria="Backstage" 
+                    categoria="Ensaios" 
                     classeExtra="backstage"
                     imagens={fotos['Backstage']} 
                     aoClicar={abrirCategoria} 

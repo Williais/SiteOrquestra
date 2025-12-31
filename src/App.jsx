@@ -5,6 +5,7 @@ import Agenda from './components/Agenda'
 import Musicos from './components/Musicos'
 import Galeria from './components/Galeria'
 import Footer from './components/Footer'
+import Doc from './components/Doc'
 import './App.css'
 
 
@@ -28,6 +29,10 @@ function App() {
 
       <section id="Agenda">
         <Agenda />
+      </section>
+
+      <section id="Agenda">
+        <Doc />
       </section>
 
       <section id="Galeria">
