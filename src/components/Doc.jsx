@@ -20,7 +20,7 @@ function Doc() {
                     
                     <div className='descricao-video'>
                         <p>DOCUMENTÁRIO OFICIAL</p>
-                        <p>DURAÇÃO: 08:00</p>
+                        <p>DURAÇÃO: 09:00</p>
                         <p>DIRIGIDO POR: <a className='link-will' href="https://www.instagram.com/willbacht/" target='_blank'>Willian Padilha</a></p>
                     </div>
                 </div>
