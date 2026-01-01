@@ -18,7 +18,9 @@ function Header() {
                 <li><a href="#Hero" onClick={toggleMenu}>A Orquestra</a></li>
                 <li><a href="#About" onClick={toggleMenu}>Nossos Músicos</a></li>
                 <li><a href="#Agenda" onClick={toggleMenu}>Concertos</a></li>
+                <li><a href="#Doc" onClick={toggleMenu}>Documentário</a></li>
                 <li><a href="#Galeria" onClick={toggleMenu}>Galeria</a></li>
+                <li><a href="#News" onClick={toggleMenu}>Noticias</a></li>
             </ul>
 
             <div className="hamburger" onClick={toggleMenu}>

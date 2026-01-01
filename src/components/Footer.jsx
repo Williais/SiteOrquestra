@@ -37,7 +37,7 @@ function Footer() {
                         <h4>SOCIAL</h4>
                         <ul>
                             <li><a href="https://www.instagram.com/orquestracefec/" target="_blank">Instagram</a></li>
-                            <li><a href="http://" target="_blank">Youtube</a></li>
+                            <li><a href="https://www.youtube.com/@O.F.C-OrquestraFilarmônicadoCe" target="_blank">Youtube</a></li>
                             <li><a href="https://www.instagram.com/maestrosadraque/" target="_blank">Instagram (Maestro Sadraque)</a></li>
                         </ul>
                     </div>

@@ -1,0 +1,173 @@
+.news {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 45px 90px 45px;
+}
+
+.news-header {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.315);
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.news-header .jornal {
+    font-size: 0.9em;
+    color: grey;
+    font-weight: 600;
+}
+
+.news-header .title-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.news-header .title-div h1 {
+    font-size: 3em;
+    font-family: 'Playfair Display', serif;
+    font-weight: 200;
+    font-style: italic;
+    margin: 0;
+}
+
+.news-header .title-div h1 span {
+    font-weight: 400;
+}
+
+.news-header .title-div p {
+    font-weight: 600;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.container-noticias {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 40px;
+}
+
+.new {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-noticias .img-news {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    background-color: rgba(128, 128, 128, 0.1);
+    padding: 40px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.container-noticias .img-news img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container-noticias .subtitle {
+    color: #9b2323;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.container-noticias .title {
+    margin: 10px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6em;
+    line-height: 1.1em;
+    font-weight: bold;
+}
+
+.container-noticias .texto {
+    text-align: justify;
+    color: rgba(128, 128, 128, 0.842);
+    font-size: 0.95em;
+    font-weight: 300;
+    margin-bottom: 20px;
+    font-family: 'Lato', sans-serif;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container-noticias .saiba-mais {
+    text-decoration: none;
+    color: black;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    margin-top: auto;
+    display: inline-block;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+    width: fit-content;
+}
+
+/* Efeitos de Hover */
+.container-noticias .new:hover {
+    cursor: pointer;
+}
+
+.container-noticias .new:hover .title {
+    text-decoration: underline;
+}
+
+.container-noticias .new:hover .saiba-mais {
+    border-bottom: 2px solid #9b2323;
+}
+
+.container-noticias .new:hover .img-news p {
+    transform: scale(1.1);
+    transition: ease-in-out 300ms;
+}
+
+@media (max-width: 768px) {
+    .news {
+        padding: 40px 20px;
+    }
+
+    .news-header .title-div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .news-header .title-div h1 {
+        font-size: 2.2em;
+    }
+
+    .container-noticias {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+        gap: 50px;
+    }
+
+    .new {
+        width: 100%;
+        flex: none;
+    }
+
+    .container-noticias .img-news {
+        height: 200px;
+    }
+}
