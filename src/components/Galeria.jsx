@@ -9,7 +9,6 @@ const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
         setIndiceAtual(0);
     }, [imagens]);
 
-    // 2. Intervalo do slideshow
     useEffect(() => {
         if (!imagens || imagens.length <= 1) return;
 
@@ -143,29 +142,29 @@ function Galeria() {
             <div className="grid-bento">
                 <GridSlideshow 
                     categoria="Palco Principal" 
-                    classeExtra="main-stage" 
-                    imagens={fotos['Main Stage']} 
+                    classeExtra="palco-Principal" 
+                    imagens={fotos['Palco Principal']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
                     categoria="Cordas" 
-                    classeExtra="violin"
-                    imagens={fotos['Violin']} 
+                    classeExtra="cordas"
+                    imagens={fotos['Cordas']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
-                    categoria="Sopro" 
-                    classeExtra="brass"
-                    imagens={fotos['Brass']} 
+                    categoria="Metais" 
+                    classeExtra="metais"
+                    imagens={fotos['Metais']} 
                     aoClicar={abrirCategoria} 
                 />
 
                 <GridSlideshow 
                     categoria="Ensaios" 
-                    classeExtra="backstage"
-                    imagens={fotos['Backstage']} 
+                    classeExtra="ensaios"
+                    imagens={fotos['Ensaios']} 
                     aoClicar={abrirCategoria} 
                 />
             </div>

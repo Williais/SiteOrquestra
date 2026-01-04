@@ -5,6 +5,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #1a1a1a0c; 
+    width: 100%;
 }
 
 .header-agenda{
@@ -15,6 +16,7 @@
     padding: 10px 0;
     border-bottom: #1a1a1a 1px solid;
     margin-bottom: 40px;
+    width: 50%;
 
     & h1{
         font-family:'Playfair Display', sans-serif;

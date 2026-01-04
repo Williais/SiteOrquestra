@@ -86,20 +86,20 @@
     opacity: 0.8;
 }
 
-.main-stage {
+.palco-Principal {
     grid-column: span 2;
     grid-row: span 2;
 }
 
-.violin {
+.cordas {
     grid-column: span 1;
 }
 
-.brass {
+.metais {
     grid-column: span 1;
 }
 
-.backstage {
+.ensaios {
     grid-column: span 2;
 }
 
