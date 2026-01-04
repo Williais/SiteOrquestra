@@ -178,7 +178,7 @@
         grid-template-rows: auto;
     }
     
-    .main-stage, .violin, .brass, .backstage {
+    .palco-Principal, .cordas, .metais, .ensaios {
         grid-column: span 1;
         grid-row: span 1;
         height: 250px;

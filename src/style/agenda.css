@@ -38,13 +38,20 @@
 
 .content-agenda{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-
-    gap: 40px;
+    gap: 20px;
     padding: 25px;
     font-size: 1.1em;
     border-bottom: #1a1a1a 1px solid;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.container-data {
+    width: 100px;
+    text-align: center;
+    flex-shrink: 0;
 }
 
 .container-data h1{
@@ -59,9 +66,16 @@
 }
 
 .img-agenda{
-    background-color: #1a1a1a74;
     width: 180px;
     height: 100px;
+    background-color: #1a1a1a74;
+    flex-shrink: 0;
+}
+
+.container-infos {
+    flex: 1;
+    padding: 0 20px;
+    text-align: left;
 }
 
 .container-infos h3{
@@ -90,6 +104,8 @@
 }
 
 .content-agenda button{
+    flex-shrink: 0;
+    width: 140px;
     padding: 12px 20px;
     background-color: transparent;
     border: 1px solid;
@@ -112,6 +128,139 @@
         color: white;
         transition: 0.5s;
     }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: #fff;
+    color: #1a1a1a;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    background: #9b2323;
+    color: white;
+    border-color: #9b2323;
+}
+
+.modal-body p {
+    margin-bottom: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+.modal-label {
+    font-weight: bold;
+    color: #9b2323;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin-right: 5px;
+}
+
+.tag-realizado {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #777;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.seletor-anos-container {
+    position: relative;
+}
+
+.btn-calendario {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.btn-calendario:hover {
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.menu-anos {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border: 1px solid #eee;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 10px 0;
+    z-index: 100;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-anos button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+    color: #555;
+    transition: 0.2s;
+}
+
+.menu-anos button:hover {
+    background-color: #f5f5f5;
+    color: #9b2323;
+}
+
+.menu-anos button.ativo {
+    font-weight: bold;
+    color: #9b2323;
+    background-color: #fafafa;
 }
 
 @media (max-width: 1024px) {
