@@ -1,7 +1,39 @@
-import '../style/news.css'
+import { useState, useEffect } from 'react';
+import '../style/news.css';
 
 function News() {
-    return(
+    const [noticias, setNoticias] = useState([]);
+
+    const formatarImagem = (link) => {
+        if (!link) return null;
+        if (typeof link !== 'string') return null;
+        if (link.includes("export=view")) return link;
+
+        const idMatch = link.match(/\/d\/(.+)\//);
+        if (idMatch && idMatch[1]) {
+            return `https://drive.google.com/uc?export=view&id=${idMatch[1]}`;
+        }
+        return link;
+    };
+
+    useEffect(() => {
+        const urlApi = "https://script.google.com/macros/s/AKfycbxmUDuZz2WOqNLnyEO0rKlCOSxzjW9mfDe5SKLzbPQxMzMF7I_5DFG3KGv0PJ-7MgCrWA/exec";
+
+        fetch(urlApi)
+            .then(response => response.json())
+            .then(data => {
+
+                console.log("Dados recebidos da API:", data);
+                if (Array.isArray(data)) {
+                    setNoticias(data);
+                } else {
+                    console.error("A API não retornou uma lista. Provavelmente um erro no Script:", data);
+                }
+            })
+            .catch(error => console.error("Erro ao carregar noticias:", error));
+    }, []);
+
+    return (
         <div>
             <section className='news'>
                 <div className="news-header">
@@ -13,45 +45,38 @@ function News() {
                 </div>
 
                 <div className="container-noticias">
-                    <div className="new">
-                        <div className="img-news">
-                        <p>Notícias</p>
-                        </div>
-                        <p className='subtitle'>Institucional</p>
-                        <h3 className="title">Abertura da Temporada 2025</h3>
-                        <p className='texto'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolor adipisci a ipsam quae autem aspernatur explicabo pariatur quia sequi?</p>
+                    {noticias.length === 0 && <p style={{textAlign: 'center'}}>Carregando notícias...</p>}
 
-                        <a className='saiba-mais' href="#" target="_blank">Saiba Mais</a>
-                    </div>
+                    {noticias.map((item, index) => {
+                        if (!item.titulo) return null;
 
-                    <div className="new">
-                        <div className="img-news">
-                        <p>Notícias</p>
-                        </div>
-                        <p className='subtitle'>Novidade</p>
-                        <h3 className="title">Novo Spalla da Orquestra</h3>
-                        <p className='texto'>Na última semana, nossos alunos tiveram a oportunidade única de aprender técnicas avançadas com </p>
+                        const imagemTratada = formatarImagem(item.imagem);
 
-                        <a className='saiba-mais' href="#" target="_blank">Saiba Mais</a>
-                    </div>
+                        return (
+                            <div className="new" key={index}>
+                                <div 
+                                    className="img-news" 
+                                    style={imagemTratada ? { 
+                                        backgroundImage: `url(${imagemTratada})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    } : {}}
+                                >
+                                    {!imagemTratada && <p>Notícias</p>}
+                                </div>
 
-                    <div className="new">
-                        <div className="img-news">
-                        <p>Notícias</p>
-                        </div>
-                        <p className='subtitle'>Novidade</p>
-                        <h3 className="title">Novo Spalla da Orquestra</h3>
-                        <p className='texto'>Na última semana, nossos alunos tiveram a oportunidade única de aprender técnicas avançadas com </p>
+                                <p className='subtitle'>{item.tema}</p>
+                                <h3 className="title">{item.titulo}</h3>
+                                <p className='texto'>{item.descricao}</p>
 
-                        <a className='saiba-mais' href="#" target="_blank">Saiba Mais</a>
-                    </div>
+                                <a className='saiba-mais' href="#" target="_blank">Saiba Mais</a>
+                            </div>
+                        );
+                    })}
                 </div>
-
-                
             </section>
         </div>
-    )
-
+    );
 }
 
-export default News
+export default News;
