@@ -17,7 +17,7 @@ function News() {
     };
 
     useEffect(() => {
-        const urlApi = "https://script.google.com/macros/s/AKfycbxmUDuZz2WOqNLnyEO0rKlCOSxzjW9mfDe5SKLzbPQxMzMF7I_5DFG3KGv0PJ-7MgCrWA/exec";
+        const urlApi = "https://script.google.com/macros/s/AKfycbzV7iOYy-wjEKdGyD111t-cbaTWATAt_8DZgOuuzsx1RPcL4RwFW93qkfbEo0T0IRfrlg/exec";
 
         fetch(urlApi)
             .then(response => response.json())
