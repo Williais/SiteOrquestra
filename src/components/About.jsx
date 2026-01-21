@@ -18,13 +18,13 @@ function About() {
                 <p id='quem-somos'>QUEM SOMOS</p>
                 <h1>Nascidos do sonho <span>de transformar.</span></h1>
 
-                <p className='texto-Sobre'>A Orquestra Filarmônica do CEFEC não é apenas um corpo artístico, é a prova viva de que a cultura pode reescrever histórias. 
+                <p className='texto-Sobre'>Maestro, produtor cultural e multi-instrumentista (teclado, sanfona e violão), Sadraque Barreto é referência na Paraíba. Pós-graduado em Regência, Neurociências e Gestão, lidera a Orquestra Filarmônica do CEFEC e é Produtor do regional Lageiro Seco.
                     <br />
                     <br /> 
-                Integrada ao <a href="https://cefecpb.com.br" target='_blank'>CEFEC</a>, oferecemos formação de excelência para jovens músicos, criando pontes entre a música de concerto e a comunidade.
+                Idealizador do Ponto de Cultura Palco Zé Ataíde e Campeão Nacional de Composição (2021), atua hoje como Diretor do Núcleo de Artes de Santa Rita. Sua trajetória une excelência técnica e impacto social, formando cidadãos através da arte.
                 </p>
 
-                <a href="https://www.instagram.com/orquestracefec" target='_blank' id='conheca-link'> CONHEÇA NOSSA HISTÓRIA <span> → </span></a>
+                <a href="https://www.instagram.com/maestrosadraque/" target='_blank' id='conheca-link'> CONHEÇA MAIS <span> → </span></a>
 
             </section>
         </div>
