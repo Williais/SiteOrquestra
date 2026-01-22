@@ -18,7 +18,7 @@ function About() {
                 </section>
 
                 <section className='sobre'>
-                    <p className='quem-somos'>QUEM SOMOS</p>
+                    <p className='quem-somos titulo-com-barra-sadraque'>DIREÇÃO ARTÍSTICA</p>
                     <h1>Nascidos do sonho <span>de transformar.</span></h1>
 
                     <p className='texto-Sobre'>Maestro, produtor cultural e multi-instrumentista (teclado, sanfona e violão), Sadraque Barreto é referência na Paraíba. Pós-graduado em Regência, Neurociências e Gestão, lidera a Orquestra Filarmônica do CEFEC e é Produtor do regional Lageiro Seco.
@@ -40,14 +40,14 @@ function About() {
                     </div>
 
                     <div className="frase-box box-spalla">
-                        <p className='frase'>"A música é o grito da alma silenciosa."</p>
+                        <p className='frase'>"A música é a alma falando em segredo."</p>
                         <p className='nome-frase'>- Joenderson Batista</p>
                     </div>
                 </section>
 
                 <section className='sobre'>
 
-                    <p className='quem-somos titulo-com-barra'>LIDERANÇA DAS CORDAS</p>
+                    <p className='quem-somos titulo-com-barra' id='nome-dourado'>LIDERANÇA DAS CORDAS</p>
                     
                     <h1>O Spalla <span>Joenderson</span></h1>
 

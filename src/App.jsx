@@ -7,6 +7,7 @@ import Galeria from './components/Galeria'
 import Footer from './components/Footer'
 import Doc from './components/Doc'
 import News from './components/News'
+import Chefe from './components/Chefe'
 import './App.css'
 
 
@@ -25,6 +26,7 @@ function App() {
       </section>
 
       <section id="Musicos">
+        <Chefe/>
         <Musicos />
       </section>
 

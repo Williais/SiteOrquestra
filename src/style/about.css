@@ -76,7 +76,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 3.5em;
     margin-bottom: 30px;
-    color: #1a1a1a;
+    color: #1a1a1a7b;
     letter-spacing: -0.04em;
     line-height: 1.1;
     font-weight: 400;
@@ -84,7 +84,7 @@
 }
 
 .sobre h1 span {
-    color: #1a1a1a7b;
+    color: #1a1a1a;
     font-family: 'Playfair Display', serif;
 }
 
@@ -169,6 +169,25 @@
     width: 60px;
     height: 2px;
     background-color: #cda868;
+}
+
+.titulo-com-barra-sadraque {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #000;
+}
+
+.titulo-com-barra-sadraque::before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #000;
+}
+
+#nome-dourado{
+    color: #cda868;
 }
 
 @media (max-width: 900px) {
