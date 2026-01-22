@@ -1,4 +1,4 @@
-.content {
+.content-maestro {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
     gap: 60px;
 }
 
-.content p {
+.content-maestro p {
     color: #0f172aa4;
 }
 
@@ -49,7 +49,7 @@
     box-shadow: 0px 4px 15px rgba(0,0,0,0.05);
 }
 
-#frase {
+.frase {
     font-family: 'Playfair Display', serif;
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -59,7 +59,7 @@
     line-height: 1.4;
 }
 
-#nome-frase {
+.nome-frase {
     font-family: 'Lato', sans-serif;
     font-weight: 600;
     font-size: 0.9em;
@@ -88,7 +88,7 @@
     font-family: 'Playfair Display', serif;
 }
 
-#quem-somos {
+.quem-somos {
     font-family: 'Lato', sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
@@ -113,7 +113,7 @@
     text-decoration: underline;
 }
 
-#conheca-link {
+.conheca-link {
     text-decoration: underline;
     text-underline-offset: 4px;
     color: #1a1a1a;
@@ -123,16 +123,52 @@
     gap: 10px;
 }
 
-#conheca-link:hover {
+.conheca-link:hover {
     color: #9b2323;
 }
 
-#conheca-link span {
+.conheca-link span {
     transition: 0.3s ease-in-out;
 }
 
-#conheca-link:hover span {
+.conheca-link:hover span {
     transform: translateX(5px);
+}
+
+.content-maestro.reverse {
+    flex-direction: row-reverse;
+}
+
+.content-maestro.reverse .maestro {
+    margin-right: 0;
+    margin-left: 100px;
+}
+
+.frase-box.box-spalla {
+    background-color: #1f1f1f;
+    border: none;
+    right: auto;
+    left: -50px;
+    bottom: -30px; 
+}
+
+.frase-box.box-spalla p {
+    color: #ffffff !important;
+}
+
+.titulo-com-barra {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #cda868;
+}
+
+.titulo-com-barra::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #cda868;
 }
 
 @media (max-width: 900px) {
@@ -165,6 +201,42 @@
     .sobre h1 {
         font-size: 2.8em;
     }
+
+    .frase-box.box-spalla {
+        left: auto;
+        right: auto;
+        bottom: 50px; 
+        width: 90%;
+        margin: 0 auto;
+    }
+
+}
+
+@media (max-width: 720px){
+    .content-maestro{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .maestro {
+        margin-right: 0;
+    }
+
+    .content-maestro.reverse {
+        flex-direction: column;
+    }
+    
+    .content-maestro.reverse .maestro {
+        margin-left: 0;
+    }
+
+    .frase-box.box-spalla {
+        left: auto;
+        right: auto;
+        bottom: 50px; 
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 480px) {
@@ -175,4 +247,5 @@
     .texto-Sobre {
         font-size: 1em;
     }
+
 }
