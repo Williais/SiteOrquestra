@@ -283,29 +283,12 @@
     }
 }
 
+
 @media (max-width: 720px) {
-    .img-agenda {
+    .img-agenda{
         display: none;
     }
-
-    .header-agenda {
-        margin-bottom: 30px;
-    }
-
-    .header-agenda h1 {
-        font-size: 2.2em;
-    }
-
-    .content-agenda {
-        justify-content: space-between;
-    }
-
-    .container-data h1 {
-        font-size: 2.5em;
-    }
-}
-
-@media (max-width: 500px) {
+    
     .header-agenda {
         flex-direction: column;
         align-items: center;
