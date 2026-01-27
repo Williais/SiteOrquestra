@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../supabaseClient";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css'
 
 function AdminNoticias() {
   const [tema, setTema] = useState("");
@@ -28,7 +28,6 @@ function AdminNoticias() {
         imagemUrl = data.publicUrl;
       }
 
-      // 2. Salvar no Banco
       const { error } = await supabase.from("noticias").insert({
         tema,
         titulo,

@@ -114,7 +114,7 @@
     .headerMusicos {
         width: 100%;
         display: flex;
-        justify-content: center; /* Garante que o container fique no meio */
+        justify-content: center;
     }
 
     .setas {

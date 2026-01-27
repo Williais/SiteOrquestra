@@ -1,0 +1,158 @@
+/* src/admin/Painel.css */
+
+.admin-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    font-family: 'Lato', sans-serif;
+    color: #0f172aa4;
+}
+
+/* --- CORREÇÃO DO NAVBAR --- */
+.admin-header {
+    background-color: white;
+    padding: 1rem 5%; /* Reduzi um pouco para não ficar gigante */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #cda868;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    
+    /* Mágica para fixar no topo e ficar por cima de tudo */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
+    box-sizing: border-box; /* Garante que o padding não estoure a tela */
+    height: 80px; /* Define uma altura fixa para calcularmos o espaço depois */
+}
+
+.admin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    font-style: italic;
+    margin: 0;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #1a1a1a;
+    padding: 8px 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #1a1a1a;
+}
+
+.btn-logout:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* --- CORREÇÃO DO CONTEÚDO (PARA NÃO FICAR EMBAIXO) --- */
+.admin-main {
+    max-width: 1200px;
+    /* AQUI ESTÁ O TRUQUE: */
+    /* 120px em cima empurra o conteúdo para baixo do header */
+    margin: 120px auto 40px; 
+    padding: 0 5%;
+}
+
+.tabs-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    color: #1a1a1a;
+    min-width: 120px;
+    text-align: center;
+}
+
+.tab-btn.active {
+    background-color: #9b2323;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(155, 35, 35, 0.3);
+}
+
+.tab-btn:hover:not(.active) {
+    background-color: #eaeaea;
+}
+
+.content-area {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 3px 2px 20px rgba(15, 23, 42, 0.1); 
+    border-top: 5px solid #1a1a1a;
+}
+
+.content-area h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.content-area input[type="text"],
+.content-area input[type="date"],
+.content-area input[type="time"],
+.content-area textarea,
+.content-area select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box; /* Importante para não quebrar layout */
+}
+
+.content-area input:focus,
+.content-area textarea:focus {
+    outline: none;
+    border-color: #cda868;
+    box-shadow: 0 0 5px rgba(205, 168, 104, 0.3);
+}
+
+@media (max-width: 768px) {
+    .tabs-container {
+        flex-direction: column;
+    }
+    .admin-header {
+        height: auto; /* No mobile a altura pode variar */
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 1rem;
+    }
+    /* Aumenta a margem no mobile pq o header fica mais alto */
+    .admin-main {
+        margin-top: 160px; 
+    }
+}
