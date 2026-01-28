@@ -1,80 +1,84 @@
 import { useState, useEffect } from 'react';
-import '../style/agenda.css'
+import { supabase } from '../supabaseClient';
+import '../style/agenda.css';
+
 
 const mesesMap = {
-    "JANEIRO": 0, "FEVEREIRO": 1, "MARÇO": 2, "ABRIL": 3, "MAIO": 4, "JUNHO": 5,
-    "JULHO": 6, "AGOSTO": 7, "SETEMBRO": 8, "OUTUBRO": 9, "NOVEMBRO": 10, "DEZEMBRO": 11
-}
+    0: "JANEIRO", 1: "FEVEREIRO", 2: "MARÇO", 3: "ABRIL", 4: "MAIO", 5: "JUNHO",
+    6: "JULHO", 7: "AGOSTO", 8: "SETEMBRO", 9: "OUTUBRO", 10: "NOVEMBRO", 11: "DEZEMBRO"
+};
 
 function Agenda() {
-    const anoAtual = new Date().getFullYear()
-    const [todosEventos, setTodosEventos] = useState([])
-    const [anoSelecionado, setAnoSelecionado] = useState(anoAtual)
-    
+    const anoAtual = new Date().getFullYear();
+    const [todosEventos, setTodosEventos] = useState([]);
+    const [anoSelecionado, setAnoSelecionado] = useState(anoAtual);
     const [menuAnosAberto, setMenuAnosAberto] = useState(false);
 
-    const [paginaAtual, setPaginaAtual] = useState(1)
-    const eventosPorPagina = 3
-    const [modalAberto, setModalAberto] = useState(false)
-    const [eventoDetalhe, setEventoDetalhe] = useState(null)
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const eventosPorPagina = 3;
+    const [modalAberto, setModalAberto] = useState(false);
+    const [eventoDetalhe, setEventoDetalhe] = useState(null);
 
-    const formatarImagemDrive = (url) => {
-        if (!url) return '';
-        const id = url.split('/d/')[1]?.split('/')[0];
-        return id ? `https://lh3.googleusercontent.com/d/${id}` : url;
-    };
-
-    const formatarHora = (horaGoogle) => {
-        if (!horaGoogle) return '';
-        if (typeof horaGoogle === 'string' && !horaGoogle.includes('T')) return horaGoogle;
-        const data = new Date(horaGoogle);
-        if (isNaN(data)) return ''; 
-        return data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const formatarHora = (hora) => {
+        if (!hora) return '';
+        return hora.slice(0, 5);
     };
 
     useEffect(() => {
         const fetchAgenda = async () => {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbzSFjbvRA_VJQgWqAtJ-ikqJCR3Raz7_s4zXeenBYi2uDKCjfEkGW6xpq2bSQTR8pSE/exec')
-            const data = await response.json()
+            const { data, error } = await supabase
+                .from('eventos')
+                .select('*')
+                .order('data', { ascending: true });
 
-            data.sort((a, b) => {
-                const mesA = mesesMap[a.mes?.toUpperCase().trim()] ?? 0
-                const mesB = mesesMap[b.mes?.toUpperCase().trim()] ?? 0
-                const dataA = new Date(a.ano, mesA, a.dia)
-                const dataB = new Date(b.ano, mesB, b.dia)
-                return dataA - dataB
-            })
-
-            setTodosEventos(data)
-            
-            const anosNosDados = [...new Set(data.map(e => e.ano))];
-            if (anosNosDados.length > 0 && !anosNosDados.includes(anoAtual)) {
-                setAnoSelecionado(anosNosDados[0]);
+            if (error) {
+                console.error("Erro agenda:", error);
+                return;
             }
-        }
-        fetchAgenda()
-    }, [])
+
+            const eventosFormatados = data.map(evento => {
+                const dataObj = new Date(evento.data + 'T00:00:00');
+                const mesIndex = dataObj.getMonth();
+                
+                return {
+                    ...evento,
+                    dia: dataObj.getDate(),
+                    mes: mesesMap[mesIndex],
+                    ano: dataObj.getFullYear(),
+                    mesIndex: mesIndex
+                };
+            });
+
+            setTodosEventos(eventosFormatados);
+
+            const anosNosDados = [...new Set(eventosFormatados.map(e => e.ano))];
+            if (anosNosDados.length > 0 && !anosNosDados.includes(anoAtual)) {
+
+                setAnoSelecionado(Math.max(...anosNosDados));
+            }
+        };
+        fetchAgenda();
+    }, []);
     
-    const eventosDoAno = todosEventos?.filter(e => e.ano == anoSelecionado) || []
+    const eventosDoAno = todosEventos?.filter(e => e.ano == anoSelecionado) || [];
     
     useEffect(() => {
         setPaginaAtual(1);
     }, [anoSelecionado]);
 
-    const indexUltimo = paginaAtual * eventosPorPagina
-    const indexPrimeiro = indexUltimo - eventosPorPagina
-    const eventosVisiveis = eventosDoAno.slice(indexPrimeiro, indexUltimo)
+    const indexUltimo = paginaAtual * eventosPorPagina;
+    const indexPrimeiro = indexUltimo - eventosPorPagina;
+    const eventosVisiveis = eventosDoAno.slice(indexPrimeiro, indexUltimo);
 
     const abrirModal = (e) => {
-        setEventoDetalhe(e)
-        setModalAberto(true)
-    }
+        setEventoDetalhe(e);
+        setModalAberto(true);
+    };
 
-    const verificarStatusEvento = (dia, mes, ano) => {
+    const verificarStatusEvento = (eventoData) => {
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
-        const mesNumero = mesesMap[mes?.toUpperCase().trim()]; 
-        const dataEvento = new Date(ano, mesNumero, dia);
+        const dataEvento = new Date(eventoData + 'T00:00:00'); 
         return dataEvento < hoje ? "REALIZADO" : "EM BREVE";
     };
 
@@ -115,41 +119,38 @@ function Agenda() {
                 </div>
 
                 {eventosVisiveis.map((e, index) => {
-                    const status = verificarStatusEvento(e.dia, e.mes, e.ano)
-                    const jaPassou = status === "REALIZADO"
-                    
-                    const imagemCorrigida = formatarImagemDrive(e.imagem);
+
+                    const status = verificarStatusEvento(e.data);
+                    const jaPassou = status === "REALIZADO";
                     const horaFormatada = formatarHora(e.hora);
 
                     return (
-                        <div className="content-agenda" key={index} onClick={() => abrirModal(e)} style={{ opacity: jaPassou ? 0.6 : 1 }}>
+                        <div className="content-agenda" key={e.id || index} onClick={() => abrirModal(e)} style={{ opacity: jaPassou ? 0.6 : 1 }}>
                             <div className='container-data'>
                                 <h1 style={{ color: jaPassou ? '#555' : '' }}>{e.dia}</h1>
-                                <h3>{e.mes}</h3>
+                                <h3>{e.mes ? e.mes.substring(0, 3) : ''}</h3>
                             </div>
 
                             <div className='img-agenda' style={{
-                                backgroundImage: `url(${imagemCorrigida})`, 
+                                backgroundImage: `url(${e.imagem_url || ''})`, 
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}></div>
 
                             <div className="container-infos">
-
                                 {jaPassou && <span className="tag-realizado">EVENTO REALIZADO</span>}
 
                                 <h3 className="title">{e.subtitulo}</h3>
-                                
                                 <h2 className="programa">{e.titulo}</h2>
                                 <p className="local">{e.local}{horaFormatada ? `, ${horaFormatada}` : ''}</p>
                             </div>
 
                             <button onClick={(event) => {
-                                event.stopPropagation()
-                                abrirModal(e)
+                                event.stopPropagation();
+                                abrirModal(e);
                             }}>DETALHES</button>
                         </div>
-                    )
+                    );
                 })}
 
                 {eventosDoAno.length > eventosPorPagina && (
@@ -188,7 +189,7 @@ function Agenda() {
 
                             <div className="modal-body">
                                 <p><span className="modal-label">Quando:</span> {eventoDetalhe.dia} de {eventoDetalhe.mes} de {eventoDetalhe.ano}</p>
-                                <p><span className="modal-label">Onde:</span> {eventoDetalhe.local} - {eventoDetalhe.cidade}</p>
+                                <p><span className="modal-label">Onde:</span> {eventoDetalhe.local} {eventoDetalhe.cidade ? `- ${eventoDetalhe.cidade}` : ''}</p>
                                 <p><span className="modal-label">Horário:</span> {formatarHora(eventoDetalhe.hora)}</p>
                                 
                                 <br/>
@@ -196,7 +197,10 @@ function Agenda() {
                                 {eventoDetalhe.repertorio && (
                                     <>
                                         <p className="modal-label">Repertório:</p>
-                                        <p style={{fontStyle: 'italic', color: '#555'}}>{eventoDetalhe.repertorio}</p>
+                                        <div 
+                                            style={{fontStyle: 'italic', color: '#555'}}
+                                            dangerouslySetInnerHTML={{ __html: eventoDetalhe.repertorio }}
+                                        />
                                     </>
                                 )}
 
@@ -210,13 +214,30 @@ function Agenda() {
                                         </p>
                                     </>
                                 )}
+
+                                {eventoDetalhe.link_ingresso && (
+                                    <div style={{marginTop: '20px', textAlign: 'center'}}>
+                                        <a 
+                                            href={eventoDetalhe.link_ingresso} 
+                                            target="_blank" 
+                                            rel="noreferrer"
+                                            className="btn-ingresso"
+                                            style={{
+                                                background: '#9b2323', color: 'white', padding: '10px 20px', 
+                                                textDecoration: 'none', borderRadius: '5px', fontWeight: 'bold'
+                                            }}
+                                        >
+                                            GARANTIR INGRESSO
+                                        </a>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 )}
             </section>
         </div>
-    )
+    );
 }
 
-export default Agenda
+export default Agenda;

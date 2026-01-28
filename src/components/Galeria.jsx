@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'; 
 import '../style/galeria.css';
 
 const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
     const [indiceAtual, setIndiceAtual] = useState(0);
 
-    useEffect(() => {
-        setIndiceAtual(0);
-    }, [imagens]);
+    useEffect(() => { setIndiceAtual(0); }, [imagens]);
 
     useEffect(() => {
         if (!imagens || imagens.length <= 1) return;
-
         const intervalo = setInterval(() => {
             setIndiceAtual((prev) => (prev + 1) % imagens.length);
         }, 4000);
-
         return () => clearInterval(intervalo);
     }, [imagens]);
 
@@ -31,7 +28,7 @@ const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
                 imagens.map((img, index) => (
                     <img 
                         key={img.id}
-                        src={img.url} 
+                        src={img.imagem_url}
                         alt={`${categoria} ${index}`}
                         className={`bg-slide ${index === indiceAtual ? 'ativo' : ''}`}
                     />
@@ -51,9 +48,7 @@ const GridSlideshow = ({ categoria, imagens, aoClicar, classeExtra }) => {
 const ModalGaleria = ({ isOpen, imagens, fecharModal }) => {
     const [indiceModal, setIndiceModal] = useState(0);
 
-    useEffect(() => {
-        setIndiceModal(0);
-    }, [isOpen]);
+    useEffect(() => { setIndiceModal(0); }, [isOpen]);
 
     if (!isOpen || !imagens || imagens.length === 0) return null;
 
@@ -71,48 +66,51 @@ const ModalGaleria = ({ isOpen, imagens, fecharModal }) => {
 
     return (
         <div className="modal-overlay" onClick={fecharModal}>
-            <button className="btn-fechar" onClick={fecharModal}>
-                <X size={32} />
-            </button>
-            
+            <button className="btn-fechar" onClick={fecharModal}><X size={32} /></button>
             <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
                 {imagens.length > 1 && (
-                    <button className="btn-nav prev" onClick={fotoAnterior}>
-                        <ChevronLeft size={40} />
-                    </button>
+                    <button className="btn-nav prev" onClick={fotoAnterior}><ChevronLeft size={40} /></button>
                 )}
                 
-                <img src={imagemAtual.url} alt="Galeria Ampliada" className="modal-imagem" />
+                <img src={imagemAtual.imagem_url} alt="Galeria Ampliada" className="modal-imagem" />
                 
                 {imagens.length > 1 && (
-                    <button className="btn-nav next" onClick={proximaFoto}>
-                        <ChevronRight size={40} />
-                    </button>
+                    <button className="btn-nav next" onClick={proximaFoto}><ChevronRight size={40} /></button>
                 )}
-
-                <div className="modal-contador">
-                    {indiceModal + 1} / {imagens.length}
-                </div>
+                <div className="modal-contador">{indiceModal + 1} / {imagens.length}</div>
             </div>
         </div>
     );
 };
 
+
 function Galeria() {
     const [fotos, setFotos] = useState(null);
     const [loading, setLoading] = useState(true);
-    
     const [modalAberto, setModalAberto] = useState(false);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState([]);
 
     useEffect(() => {
         const fetchGaleria = async () => {
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbwWErNWCgA73UtSbyd6DfZ7Z7VnhWWvXWGjw6vbU2icv2u9zFYF7-kNpIoQIAV3xpTKYA/exec');
-                const data = await response.json();
-                setFotos(data);
+                // Busca do Supabase
+                const { data, error } = await supabase
+                    .from('galeria')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                const fotosAgrupadas = data.reduce((acc, item) => {
+                    const cat = item.categoria || 'Geral';
+                    if (!acc[cat]) acc[cat] = [];
+                    acc[cat].push(item);
+                    return acc;
+                }, {});
+
+                setFotos(fotosAgrupadas);
             } catch (error) {
-                console.error(error);
+                console.error("Erro ao carregar galeria:", error);
             } finally {
                 setLoading(false);
             }
@@ -132,7 +130,7 @@ function Galeria() {
         setCategoriaSelecionada([]);
     };
 
-    if (loading) return <div className="loading">Carregando galeria...</div>;
+    if (loading) return <div className="loading" style={{textAlign:'center', padding:'50px'}}>Carregando galeria...</div>;
     if (!fotos) return null;
 
     return (
