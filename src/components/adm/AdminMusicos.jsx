@@ -35,15 +35,15 @@ function AdminMusicos() {
             let publicUrl = null;
 
             if (arquivo) {
-                const nomeArquivo = `musicos/${Date.now()}-${arquivo.name}`;
+                const nomeArquivo = `${Date.now()}-${arquivo.name}`;
                 const { error: uploadError } = await supabase.storage
-                    .from('arquivos_orquestra')
+                    .from('musicos') 
                     .upload(nomeArquivo, arquivo);
 
                 if (uploadError) throw uploadError;
 
                 const { data } = supabase.storage
-                    .from('arquivos_orquestra')
+                    .from('musicos')
                     .getPublicUrl(nomeArquivo);
                 
                 publicUrl = data.publicUrl;
@@ -56,9 +56,9 @@ function AdminMusicos() {
                     sobrenome,
                     instrumento,
                     naipe,
-                    ano,
+                    ano_inicio: ano,
                     social,
-                    foto_url: publicUrl
+                    imagem_url: publicUrl
                 });
 
             if (dbError) throw dbError;
@@ -76,20 +76,20 @@ function AdminMusicos() {
 
         } catch (error) {
             console.error(error);
-            alert("Erro ao cadastrar.");
+            alert("Erro ao cadastrar: " + error.message);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleDelete = async (id, fotoUrl) => {
+    const handleDelete = async (id, imagemUrl) => {
         if (!confirm("Tem certeza que deseja remover este músico?")) return;
 
         try {
-            if (fotoUrl) {
-                const path = fotoUrl.split('/arquivos_orquestra/')[1];
-                if (path) {
-                    await supabase.storage.from('arquivos_orquestra').remove([path]);
+            if (imagemUrl) {
+                const partesUrl = imagemUrl.split('/musicos/');
+                if (partesUrl[1]) {
+                    await supabase.storage.from('musicos').remove([partesUrl[1]]);
                 }
             }
 
@@ -126,6 +126,7 @@ function AdminMusicos() {
                     <option value="Viola">Viola</option>
                     <option value="Violoncelo">Violoncelo</option>
                     <option value="Contrabaixo">Contrabaixo</option>
+                    <option value="Baixo-Eletrico">Baixo Elétrico</option>
                     <option value="Flauta-Transversal">Flauta Transversal</option>
                     <option value="Clarinete">Clarinete</option>
                     <option value="Oboé">Oboé</option>
@@ -134,6 +135,8 @@ function AdminMusicos() {
                     <option value="Trompete">Trompete</option>
                     <option value="Trombone">Trombone</option>
                     <option value="Tuba">Tuba</option>
+                    <option value="Sax-Alto">Sax Alto</option>
+                    <option value="Sax-Tenor">Sax Tenor</option>
                     <option value="Percussão">Percussão</option>
                     <option value="Piano">Piano</option>
                     <option value="Spalla">Spalla</option>
@@ -174,17 +177,17 @@ function AdminMusicos() {
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                             <img 
-                                src={musico.foto_url || 'https://via.placeholder.com/50'} 
+                                src={musico.imagem_url || 'https://via.placeholder.com/50'} 
                                 alt={musico.nome} 
                                 style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} 
                             />
                             <div>
                                 <strong style={{ display: 'block' }}>{musico.nome} {musico.sobrenome}</strong>
-                                <span style={{ fontSize: '0.9em', color: '#666' }}>{musico.instrumento}</span>
+                                <span style={{ fontSize: '0.9em', color: '#666' }}>{musico.instrumento} | {musico.ano_inicio}</span>
                             </div>
                         </div>
                         <button 
-                            onClick={() => handleDelete(musico.id, musico.foto_url)}
+                            onClick={() => handleDelete(musico.id, musico.imagem_url)}
                             style={{ 
                                 background: '#9b2323', color: 'white', border: 'none', 
                                 padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'

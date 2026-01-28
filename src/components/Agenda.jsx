@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import '../style/agenda.css';
 
-
 const mesesMap = {
     0: "JANEIRO", 1: "FEVEREIRO", 2: "MARÇO", 3: "ABRIL", 4: "MAIO", 5: "JUNHO",
     6: "JULHO", 7: "AGOSTO", 8: "SETEMBRO", 9: "OUTUBRO", 10: "NOVEMBRO", 11: "DEZEMBRO"
@@ -29,7 +28,7 @@ function Agenda() {
             const { data, error } = await supabase
                 .from('eventos')
                 .select('*')
-                .order('data', { ascending: true });
+                .order('data_evento', { ascending: true });
 
             if (error) {
                 console.error("Erro agenda:", error);
@@ -37,7 +36,8 @@ function Agenda() {
             }
 
             const eventosFormatados = data.map(evento => {
-                const dataObj = new Date(evento.data + 'T00:00:00');
+                const dataString = evento.data_evento;
+                const dataObj = new Date(dataString + 'T00:00:00');
                 const mesIndex = dataObj.getMonth();
                 
                 return {
@@ -45,7 +45,8 @@ function Agenda() {
                     dia: dataObj.getDate(),
                     mes: mesesMap[mesIndex],
                     ano: dataObj.getFullYear(),
-                    mesIndex: mesIndex
+                    mesIndex: mesIndex,
+                    data_evento: dataString
                 };
             });
 
@@ -53,7 +54,6 @@ function Agenda() {
 
             const anosNosDados = [...new Set(eventosFormatados.map(e => e.ano))];
             if (anosNosDados.length > 0 && !anosNosDados.includes(anoAtual)) {
-
                 setAnoSelecionado(Math.max(...anosNosDados));
             }
         };
@@ -119,8 +119,7 @@ function Agenda() {
                 </div>
 
                 {eventosVisiveis.map((e, index) => {
-
-                    const status = verificarStatusEvento(e.data);
+                    const status = verificarStatusEvento(e.data_evento);
                     const jaPassou = status === "REALIZADO";
                     const horaFormatada = formatarHora(e.hora);
 
@@ -140,8 +139,8 @@ function Agenda() {
                             <div className="container-infos">
                                 {jaPassou && <span className="tag-realizado">EVENTO REALIZADO</span>}
 
-                                <h3 className="title">{e.subtitulo}</h3>
-                                <h2 className="programa">{e.titulo}</h2>
+                                <h3 className="title">{e.titulo_chamativo}</h3>
+                                <h2 className="programa">{e.titulo_principal}</h2>
                                 <p className="local">{e.local}{horaFormatada ? `, ${horaFormatada}` : ''}</p>
                             </div>
 
@@ -179,10 +178,10 @@ function Agenda() {
                             <button className="close-btn" onClick={() => setModalAberto(false)}>X</button>
 
                             <h2 style={{fontFamily: 'Playfair Display', fontSize: '2em', marginBottom: '5px'}}>
-                                {eventoDetalhe.titulo}
+                                {eventoDetalhe.titulo_principal}
                             </h2>
                             <h3 style={{color: '#9b2323', fontStyle: 'italic', marginBottom: '20px', fontWeight: '400'}}>
-                                {eventoDetalhe.subtitulo}
+                                {eventoDetalhe.titulo_chamativo}
                             </h3>
                             
                             <hr style={{border: '0', borderTop: '1px solid #eee', margin: '20px 0'}}/>

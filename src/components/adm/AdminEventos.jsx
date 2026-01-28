@@ -20,10 +20,11 @@ function AdminEventos() {
     }, []);
 
     const fetchEventos = async () => {
+
         const { data } = await supabase
             .from('eventos')
             .select('*')
-            .order('data', { ascending: false });
+            .order('data_evento', { ascending: false });
         setListaEventos(data || []);
     };
 
@@ -55,37 +56,31 @@ function AdminEventos() {
             const { error: dbError } = await supabase
                 .from('eventos')
                 .insert({
-                    titulo,
-                    subtitulo,
-                    data: dataEvento,
-                    hora,
-                    local,
-                    cidade,
-                    descricao,
-                    repertorio,
-                    link_ingresso: linkIngresso,
+                    titulo_principal: titulo,
+                    titulo_chamativo: subtitulo,
+                    data_evento: dataEvento,
+                    hora: hora,
+                    local: local,
+                    cidade: cidade,
+                    descricao: descricao,
+                    repertorio: repertorio,
                     imagem_url: publicUrl
                 });
 
             if (dbError) throw dbError;
 
             alert("Evento criado com sucesso!");
-            setTitulo('');
-            setSubtitulo('');
-            setDataEvento('');
-            setHora('');
-            setLocal('');
-            setCidade('');
-            setDescricao('');
-            setRepertorio('');
-            setLinkIngresso('');
-            setArquivo(null);
+
+            setTitulo(''); setSubtitulo(''); setDataEvento(''); setHora('');
+            setLocal(''); setCidade(''); setDescricao(''); setRepertorio('');
+            setLinkIngresso(''); setArquivo(null);
             document.getElementById('fileEvento').value = "";
+            
             fetchEventos();
 
         } catch (error) {
             console.error(error);
-            alert("Erro ao criar evento.");
+            alert("Erro ao criar evento: " + error.message);
         } finally {
             setLoading(false);
         }
@@ -123,8 +118,8 @@ function AdminEventos() {
             <h2>Novo Evento</h2>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
-                <input type="text" placeholder="Título do Concerto" value={titulo} onChange={e => setTitulo(e.target.value)} />
-                <input type="text" placeholder="Subtítulo (Opcional)" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
+                <input type="text" placeholder="Título do Concerto (Principal)" value={titulo} onChange={e => setTitulo(e.target.value)} />
+                <input type="text" placeholder="Subtítulo (Chamativo)" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '15px' }}>
@@ -141,19 +136,19 @@ function AdminEventos() {
                 placeholder="Descrição do evento..." 
                 value={descricao} 
                 onChange={e => setDescricao(e.target.value)} 
-                style={{ marginTop: '15px', height: '100px', resize: 'vertical' }}
+                style={{ marginTop: '15px', height: '100px', resize: 'vertical', width: '100%' }}
             />
 
             <textarea 
                 placeholder="Repertório (Use <br> para quebrar linha)" 
                 value={repertorio} 
                 onChange={e => setRepertorio(e.target.value)} 
-                style={{ marginTop: '15px', height: '80px', resize: 'vertical' }}
+                style={{ marginTop: '15px', height: '80px', resize: 'vertical', width: '100%' }}
             />
 
             <input 
                 type="text" 
-                placeholder="Link para Ingresso (URL)" 
+                placeholder="Link para Ingresso (URL) - Crie a coluna no banco se for usar!" 
                 value={linkIngresso} 
                 onChange={e => setLinkIngresso(e.target.value)} 
                 style={{ marginTop: '15px' }}
@@ -189,8 +184,11 @@ function AdminEventos() {
                                 <img src={evento.imagem_url} alt="Capa" style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
                             )}
                             <div>
-                                <strong style={{ display: 'block' }}>{evento.titulo}</strong>
-                                <span style={{ fontSize: '0.9em', color: '#666' }}>{new Date(evento.data).toLocaleDateString('pt-BR')} às {evento.hora.slice(0, 5)}</span>
+
+                                <strong style={{ display: 'block' }}>{evento.titulo_principal}</strong>
+                                <span style={{ fontSize: '0.9em', color: '#666' }}>
+                                    {new Date(evento.data_evento).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} às {evento.hora.slice(0, 5)}
+                                </span>
                             </div>
                         </div>
                         <button 
