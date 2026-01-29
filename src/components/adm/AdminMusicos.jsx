@@ -10,7 +10,10 @@ function AdminMusicos() {
     const [social, setSocial] = useState('');
     const [arquivo, setArquivo] = useState(null);
     const [loading, setLoading] = useState(false);
+
     const [listaMusicos, setListaMusicos] = useState([]);
+    const [editingId, setEditingId] = useState(null);
+    const [imagemUrlAnterior, setImagemUrlAnterior] = useState(null);
 
     useEffect(() => {
         fetchMusicos();
@@ -24,7 +27,40 @@ function AdminMusicos() {
         setListaMusicos(data || []);
     };
 
-    const handleUpload = async () => {
+
+    const handleEdit = (musico) => {
+        setNome(musico.nome || '');
+        setSobrenome(musico.sobrenome || '');
+        setInstrumento(musico.instrumento || '');
+        setNaipe(musico.naipe || '');
+        setAno(musico.ano_inicio || '');
+        setSocial(musico.social || '');
+        setImagemUrlAnterior(musico.imagem_url);
+        setEditingId(musico.id);
+        
+
+        setArquivo(null);
+        document.getElementById('fileMusico').value = "";
+
+   
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCancelEdit = () => {
+        setEditingId(null);
+        setImagemUrlAnterior(null);
+        limparFormulario();
+    };
+
+    const limparFormulario = () => {
+        setNome(''); setSobrenome(''); setInstrumento('');
+        setNaipe(''); setAno(''); setSocial(''); setArquivo(null);
+        if (document.getElementById('fileMusico')) {
+            document.getElementById('fileMusico').value = "";
+        }
+    };
+
+    const handleSave = async () => {
         if (!nome || !instrumento) {
             alert("Nome e Instrumento são obrigatórios.");
             return;
@@ -32,7 +68,8 @@ function AdminMusicos() {
         setLoading(true);
 
         try {
-            let publicUrl = null;
+            let publicUrl = imagemUrlAnterior;
+
 
             if (arquivo) {
                 const nomeArquivo = `${Date.now()}-${arquivo.name}`;
@@ -49,34 +86,42 @@ function AdminMusicos() {
                 publicUrl = data.publicUrl;
             }
 
-            const { error: dbError } = await supabase
-                .from('musicos')
-                .insert({
-                    nome,
-                    sobrenome,
-                    instrumento,
-                    naipe,
-                    ano_inicio: ano,
-                    social,
-                    imagem_url: publicUrl
-                });
+            const dadosMusico = {
+                nome,
+                sobrenome,
+                instrumento,
+                naipe,
+                ano_inicio: ano,
+                social,
+                imagem_url: publicUrl
+            };
 
-            if (dbError) throw dbError;
+            if (editingId) {
+            
+                const { error } = await supabase
+                    .from('musicos')
+                    .update(dadosMusico)
+                    .eq('id', editingId);
 
-            alert("Músico cadastrado com sucesso!");
-            setNome('');
-            setSobrenome('');
-            setInstrumento('');
-            setNaipe('');
-            setAno('');
-            setSocial('');
-            setArquivo(null);
-            document.getElementById('fileMusico').value = "";
+                if (error) throw error;
+                alert("Músico atualizado com sucesso!");
+
+            } else {
+             
+                const { error } = await supabase
+                    .from('musicos')
+                    .insert(dadosMusico);
+
+                if (error) throw error;
+                alert("Músico cadastrado com sucesso!");
+            }
+
+            handleCancelEdit();
             fetchMusicos();
 
         } catch (error) {
             console.error(error);
-            alert("Erro ao cadastrar: " + error.message);
+            alert("Erro ao salvar: " + error.message);
         } finally {
             setLoading(false);
         }
@@ -93,11 +138,7 @@ function AdminMusicos() {
                 }
             }
 
-            const { error } = await supabase
-                .from('musicos')
-                .delete()
-                .eq('id', id);
-
+            const { error } = await supabase.from('musicos').delete().eq('id', id);
             if (error) throw error;
 
             setListaMusicos(listaMusicos.filter(m => m.id !== id));
@@ -111,8 +152,17 @@ function AdminMusicos() {
 
     return (
         <div>
-            <h2>Cadastrar Músico</h2>
+            <h2>{editingId ? "Editar Músico" : "Cadastrar Músico"}</h2>
             
+            {editingId && (
+                <div style={{ marginBottom: '10px', padding: '10px', background: '#fff3cd', borderRadius: '5px', border: '1px solid #ffeeba', color: '#856404' }}>
+                    ✏️ Você está editando <strong>{nome}</strong>. 
+                    <button onClick={handleCancelEdit} style={{ marginLeft: '10px', cursor: 'pointer', background: 'transparent', border: 'none', textDecoration: 'underline' }}>
+                        Cancelar edição
+                    </button>
+                </div>
+            )}
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                 <input type="text" placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)} />
                 <input type="text" placeholder="Sobrenome" value={sobrenome} onChange={e => setSobrenome(e.target.value)} />
@@ -151,24 +201,44 @@ function AdminMusicos() {
             </div>
 
             <div style={{ marginTop: '15px' }}>
-                <label>Foto do Músico:</label>
+                <label>Foto do Músico {editingId && "(Deixe vazio para manter a atual)"}:</label>
                 <input id="fileMusico" type="file" accept="image/*" onChange={e => setArquivo(e.target.files[0])} />
+            
+                {editingId && imagemUrlAnterior && (
+                    <div style={{ marginTop: '5px', fontSize: '0.9em', color: '#666' }}>
+                        Foto atual: <a href={imagemUrlAnterior} target="_blank" rel="noreferrer">Ver imagem</a>
+                    </div>
+                )}
             </div>
 
-            <button 
-                onClick={handleUpload} 
-                disabled={loading}
-                style={{ 
-                    marginTop: '20px', padding: '15px', background: '#1a1a1a', 
-                    color: 'white', border: 'none', width: '100%', cursor: 'pointer', fontWeight: 'bold' 
-                }}
-            >
-                {loading ? "Salvando..." : "Cadastrar Músico"}
-            </button>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                <button 
+                    onClick={handleSave} 
+                    disabled={loading}
+                    style={{ 
+                        flex: 1, padding: '15px', background: editingId ? '#007bff' : '#1a1a1a', 
+                        color: 'white', border: 'none', cursor: 'pointer', fontWeight: 'bold', borderRadius: '5px' 
+                    }}
+                >
+                    {loading ? "Salvando..." : (editingId ? "Atualizar Músico" : "Cadastrar Músico")}
+                </button>
+                
+                {editingId && (
+                    <button 
+                        onClick={handleCancelEdit}
+                        style={{ 
+                            padding: '15px', background: '#ccc', color: '#333', 
+                            border: 'none', cursor: 'pointer', fontWeight: 'bold', borderRadius: '5px' 
+                        }}
+                    >
+                        Cancelar
+                    </button>
+                )}
+            </div>
 
             <hr style={{ margin: '40px 0' }} />
 
-            <h3>Lista de Músicos</h3>
+            <h3>Lista de Músicos ({listaMusicos.length})</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {listaMusicos.map(musico => (
                     <div key={musico.id} style={{ 
@@ -186,15 +256,28 @@ function AdminMusicos() {
                                 <span style={{ fontSize: '0.9em', color: '#666' }}>{musico.instrumento} | {musico.ano_inicio}</span>
                             </div>
                         </div>
-                        <button 
-                            onClick={() => handleDelete(musico.id, musico.imagem_url)}
-                            style={{ 
-                                background: '#9b2323', color: 'white', border: 'none', 
-                                padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'
-                            }}
-                        >
-                            Excluir
-                        </button>
+                        
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <button 
+                                onClick={() => handleEdit(musico)}
+                                style={{ 
+                                    background: '#007bff', color: 'white', border: 'none', 
+                                    padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'
+                                }}
+                            >
+                                ✏️ Editar
+                            </button>
+
+                            <button 
+                                onClick={() => handleDelete(musico.id, musico.imagem_url)}
+                                style={{ 
+                                    background: '#9b2323', color: 'white', border: 'none', 
+                                    padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'
+                                }}
+                            >
+                                🗑️ Excluir
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

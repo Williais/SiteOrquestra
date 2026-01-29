@@ -64,6 +64,7 @@ function Musicos() {
                             return (
                                 <div className="musico" key={musico.id || index}>
                                     <div className="circulo-musico">
+                               
                                         {(musico.imagem_url) 
                                             ? <img src={musico.imagem_url} alt={`Foto de ${musico.nome}`} /> 
                                             : <div style={{width:'100%', height:'100%', background:'#ddd', display:'flex', alignItems:'center', justifyContent:'center'}}>♪</div>
@@ -80,6 +81,8 @@ function Musicos() {
                                         </a>
                                     </h4>
                                     <p>{musico.instrumento}</p>
+                                    
+                             
                                     {musico.ano_inicio && <p style={{fontSize: '0.8em', color: '#666'}}>Desde {musico.ano_inicio}</p>}
                                 </div>
                             )
