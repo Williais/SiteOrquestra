@@ -1,156 +1,232 @@
-/* --- ESTRUTURA GERAL --- */
-.musicos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+:root {
+    --bg-dark: #0f1218;
+    --card-bg: #161b22;
+    --gold: #c5a059;
+    --gold-light: #e5c585;
+    --text-main: #f0f0f0;
+    --text-muted: #8b9bb4;
+}
+
+.musicos-section {
+    background-color: var(--bg-dark);
+    padding: 60px 0;
     width: 100%;
+    position: relative;
     overflow: hidden;
 }
 
-.musicos h2 {
-    margin-bottom: 40px;
-    font-family: 'Playfair Display', serif;
-    color: #0f172a;
-    font-weight: 800;
-    font-size: 1.7em;
+.musicos-header {
     text-align: center;
+    margin-bottom: 50px;
+    font-family: 'Playfair Display', serif;
 }
 
-.headerMusicos {
+.divider-gold {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 15px;
+}
+
+.musicos-header h2 {
+    color: var(--text-main);
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: var(--gold);
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+.carousel-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    gap: 10px;
+    justify-content: center;
     position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.setas {
-    color: #0f172a;
-    transition: transform 0.2s;
-    cursor: pointer;
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.setas:hover {
-    transform: scale(1.1);
-    color: #e67e22;
-}
-
-.container-musicos {
+.track-musicos {
     display: flex;
-    gap: 20px;
-    width: 100%;
-    flex-wrap: nowrap;
+    gap: 30px;
     overflow-x: auto;
+    padding: 40px 20px;
     scroll-behavior: smooth;
-    padding: 20px 20px;
     scroll-snap-type: x mandatory;
-    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    
     scrollbar-width: none;
-    -ms-overflow-style: none;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.container-musicos::-webkit-scrollbar {
+.track-musicos::-webkit-scrollbar {
     display: none;
 }
 
-.container-musicos .musico {
-    flex-shrink: 0;
-    width: 140px;
+.card-musico {
+    flex: 0 0 220px;
+    scroll-snap-align: center;
+    perspective: 1000px;
+}
+
+.card-inner {
+    background: var(--card-bg);
+    border: 1px solid #2a3441;
+    border-radius: 8px;
+    padding: 30px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    scroll-snap-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.container-musicos .musico .circulo-musico {
-    width: 100px;
-    height: 100px;
+.card-inner:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15);
+}
+
+.moldura-foto {
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    margin-bottom: 10px;
-    box-shadow: 2px 1px 10px #0f172a29;
-    background-color: #e2e8f0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 5px;
+    border: 1px solid var(--gold);
+    margin-bottom: 20px;
+    position: relative;
 }
 
-.container-musicos .musico .circulo-musico img {
+.moldura-foto img, .placeholder-img {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
     object-fit: cover;
+    border: 3px solid var(--bg-dark);
+    filter: grayscale(20%);
+    transition: filter 0.3s;
 }
 
-.container-musicos .musico h4 {
-    margin-bottom: 5px;
+.placeholder-img {
+    background: #2a3441;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 2rem;
+}
+
+.card-inner:hover img {
+    filter: grayscale(0%);
+}
+
+.info-musico {
+    text-align: center;
+}
+
+.info-musico h4 a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    text-decoration: none;
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.info-musico h4 a:hover {
+    color: var(--gold-light);
+}
+
+.info-musico h4 a.disabled-link {
+    pointer-events: none;
+}
+
+.sobrenome {
+    display: block;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-top: 5px;
+}
+
+.instrumento {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    border-top: 1px solid #2a3441;
+    padding-top: 10px;
+    margin-top: 10px;
     width: 100%;
 }
 
-.container-musicos .musico h4 a {
+.ano {
     font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    text-decoration: none;
-    color: #0f172a;
-    font-size: 1em;
+    font-style: italic;
+    color: #586575;
+    font-size: 0.8rem;
 }
 
-.container-musicos .musico p {
-    font-size: 0.8em;
+.nav-btn {
+    background: transparent;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    color: var(--gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.nav-btn:hover {
+    background: var(--gold);
+    color: var(--bg-dark);
+    border-color: var(--gold);
 }
 
 @media (max-width: 768px) {
-    
-    @media (max-width: 768px) {
-    
-    .headerMusicos {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .setas {
+    .nav-btn {
         display: none;
     }
-
-    .container-musicos {
-        width: 95%; 
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px 10px; 
     
-        justify-content: flex-start; 
-        gap: 15px;
-        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        overflow-x: auto;
+    .track-musicos {
+        mask-image: none;
+        padding-left: 10px;
+        padding-right: 10px;
     }
-
-    .container-musicos .musico {
-        width: 100px; 
-        scroll-snap-align: center;
+    
+    .card-musico {
+        flex: 0 0 180px;
     }
-
-    .container-musicos .musico .circulo-musico {
-        width: 75px;
-        height: 75px;
-        margin-bottom: 8px;
+    
+    .moldura-foto {
+        width: 100px;
+        height: 100px;
     }
-
-    .container-musicos .musico h4 a {
-        font-size: 0.85em;
+    
+    .sobrenome {
+        font-size: 1.1rem;
     }
-
-    .container-musicos .musico p {
-        font-size: 0.7em;
-    }
-}
 }

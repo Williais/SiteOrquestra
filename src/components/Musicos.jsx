@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { supabase } from '../supabaseClient';
-import { SquareArrowLeft, SquareArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../style/musicos.css';
 
 function Musicos() {
@@ -16,24 +16,15 @@ function Musicos() {
     useEffect(() => {
         const fetchMusicos = async () => {
             try {
-                const { data, error } = await supabase
-                    .from('musicos')
-                    .select('*');
-
+                const { data, error } = await supabase.from('musicos').select('*');
                 if (error) throw error;
 
                 const dadosOrdenados = data.sort((a, b) => {
                     const pesoA = pesosInstrumentos[a.instrumento] || 99;
                     const pesoB = pesosInstrumentos[b.instrumento] || 99;
-
-                    if (pesoA !== pesoB) {
-                        return pesoA - pesoB;
-                    }
-                    return a.nome.localeCompare(b.nome);
+                    return pesoA !== pesoB ? pesoA - pesoB : a.nome.localeCompare(b.nome);
                 });
-
                 setListaMusicos(dadosOrdenados);
-
             } catch (error) {
                 console.error("Erro ao buscar músicos:", error);
             }
@@ -41,60 +32,60 @@ function Musicos() {
         fetchMusicos();
     }, []);
 
-    const handleScrollRight = () => {
-        if (carouselRef.current) carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-    };
-
-    const handleScrollLeft = () => {
-        if (carouselRef.current) carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    const handleScroll = (direction) => {
+        if (carouselRef.current) {
+            const scrollAmount = direction === 'left' ? -320 : 320;
+            carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
     };
 
     return (
-        <div>
-            <div className="musicos">
-                <h2>Nossos Músicos</h2>
+        <section className="musicos-section">
+            <div className="musicos-header">
+                <div className="divider-gold"></div>
+                <h2>Nossos Virtuosos</h2>
+                <p className="subtitle">A alma da orquestra</p>
+            </div>
+            
+            <div className="carousel-container">
+                <button className="nav-btn left" onClick={() => handleScroll('left')}>
+                    <ChevronLeft size={40} strokeWidth={1} />
+                </button>
                 
-                <div className="headerMusicos">
-                    <div className="setas" onClick={handleScrollLeft}> 
-                        <SquareArrowLeft size={32} cursor="pointer" /> 
-                    </div>
-                    
-                    <div className="container-musicos" ref={carouselRef}>
-                        {listaMusicos.map((musico, index) => {
-                            return (
-                                <div className="musico" key={musico.id || index}>
-                                    <div className="circulo-musico">
-                               
-                                        {(musico.imagem_url) 
-                                            ? <img src={musico.imagem_url} alt={`Foto de ${musico.nome}`} /> 
-                                            : <div style={{width:'100%', height:'100%', background:'#ddd', display:'flex', alignItems:'center', justifyContent:'center'}}>♪</div>
-                                        }
-                                    </div>
+                <div className="track-musicos" ref={carouselRef}>
+                    {listaMusicos.map((musico, index) => (
+                        <div className="card-musico" key={musico.id || index}>
+                            <div className="card-inner">
+                                <div className="moldura-foto">
+                                    {musico.imagem_url 
+                                        ? <img src={musico.imagem_url} alt={musico.nome} /> 
+                                        : <div className="placeholder-img">♪</div>
+                                    }
+                                </div>
+                                <div className="info-musico">
                                     <h4>
                                         <a 
                                             href={musico.social ? `https://instagram.com/${musico.social.replace('@', '').replace('https://instagram.com/', '')}` : '#'} 
                                             target='_blank' 
                                             rel="noreferrer"
-                                            style={{ pointerEvents: musico.social ? 'auto' : 'none' }}
+                                            className={!musico.social ? 'disabled-link' : ''}
                                         >
-                                            {musico.nome} {musico.sobrenome}
+                                            {musico.nome} <span className="sobrenome">{musico.sobrenome}</span>
                                         </a>
                                     </h4>
-                                    <p>{musico.instrumento}</p>
-                                    
-                             
-                                    {musico.ano_inicio && <p style={{fontSize: '0.8em', color: '#666'}}>Desde {musico.ano_inicio}</p>}
+                                    <span className="instrumento">{musico.instrumento}</span>
+                                    {musico.ano_inicio && <span className="ano">Desde {musico.ano_inicio}</span>}
                                 </div>
-                            )
-                        })}
-                    </div>
-                    
-                    <div className="setas" onClick={handleScrollRight}> 
-                        <SquareArrowRight size={32} cursor="pointer" /> 
-                    </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
+                
+                <button className="nav-btn right" onClick={() => handleScroll('right')}>
+                    <ChevronRight size={40} strokeWidth={1} />
+                </button>
             </div>
-        </div>
+        </section>
     )
 }
 

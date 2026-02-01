@@ -24,10 +24,15 @@ function News() {
         document.body.style.overflow = 'hidden';
     };
 
-    // Função para fechar o modal
     const fecharModal = () => {
         setNoticiaSelecionada(null);
         document.body.style.overflow = 'auto';
+    };
+
+    const formatarData = (dataString) => {
+        if (!dataString) return "";
+        const data = new Date(dataString);
+        return data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', '');
     };
 
     const noticiasExibidas = noticias.slice(0, 3);
@@ -36,36 +41,42 @@ function News() {
         <section className='news'>
             <div className="news-header">
                 <p className='jornal'>JORNAL DA OFC</p>
-                <div className="title-div">
-                    <h1>Bastidores <span>&</span> Novidades</h1>
-                    <p><a href="https://instagram.com" target="_blank" rel="noreferrer">SIGA NO INSTAGRAM</a></p>
-                </div>
+                <h1>Bastidores <span>&</span> Novidades</h1>
+                <a href="https://www.instagram.com/orquestracefec" target="_blank" rel="noreferrer" className="link-instagram">
+                    SIGA NO INSTAGRAM
+                </a>
             </div>
 
             <div className="container-noticias">
                 {noticiasExibidas.length === 0 && <p>Carregando notícias...</p>}
 
                 {noticiasExibidas.map((item) => (
-                    <div className="new" key={item.id}>
+                    <div className="new" key={item.id} onClick={() => abrirModal(item)}>
                         <div className="img-news">
                             {item.imagem_url ? (
                                 <img src={item.imagem_url} alt={item.titulo} />
                             ) : (
-                                <div style={{width:'100%', height:'100%', background:'#eee'}}></div>
+                                <div style={{width:'100%', height:'100%', background:'#eee', display:'flex', alignItems:'center', justifyContent:'center', color:'#999'}}>Sem Imagem</div>
                             )}
                         </div>
 
-                        <p className='subtitle'>{item.tema || "Geral"}</p>
-                        <h3 className="title">{item.titulo}</h3>
+                        <div className="card-content">
+                            <div className="meta-info">
+                                <span className='subtitle'>{item.tema || "Geral"}</span>
+                                <span className='data-post'>{formatarData(item.created_at)}</span>
+                            </div>
+                            
+                            <h3 className="title">{item.titulo}</h3>
 
-                        <div 
-                            className='texto' 
-                            dangerouslySetInnerHTML={{ __html: item.texto_html }} 
-                        />
+                            <div 
+                                className='texto' 
+                                dangerouslySetInnerHTML={{ __html: item.texto_html }} 
+                            />
 
-                        <button className='saiba-mais' onClick={() => abrirModal(item)}>
-                            Saiba Mais
-                        </button>
+                            <button className='saiba-mais-btn'>
+                                Ler Matéria
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

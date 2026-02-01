@@ -4,69 +4,59 @@ import jojo from '../assets/ImagemJojo.JPG'
 
 function About() {
     return(
-
         <div className='container-main'>
+            
             <div className='content-maestro'>
-                <section className='maestro' >
-                    <div className="img-sadraque">
-                        <img src={sadraque} alt="Foto do Maestro Sadraque" width={250}/>
+                <div className='maestro-visual'>
+                    <div className="img-moldura">
+                        <img src={sadraque} alt="Maestro Sadraque Barreto" />
                     </div>
-                    <div className="frase-box">
-                        <p className='frase'>"A música não é apenas arte, é cidadania."</p>
-                        <p className='nome-frase'>- Maestro Sadraque Barreto</p>
-                    </div>
-                </section>
+                    <div className="assinatura-maestro">Sadraque Barreto</div>
+                </div>
 
-                <section className='sobre'>
-                    <p className='quem-somos titulo-com-barra-sadraque'>DIREÇÃO ARTÍSTICA</p>
-                    <h1>Nascidos do sonho <span>de transformar.</span></h1>
+                <div className='maestro-info'>
+                    <span className="label-cargo">DIREÇÃO ARTÍSTICA & REGÊNCIA</span>
+                    <h1 className="titulo-maestro">
+                        Sadraque Barreto
+                        <span>A visão por trás da música</span>
+                    </h1>
 
-                    <p className='texto-Sobre'>Maestro, produtor cultural e multi-instrumentista (teclado, sanfona e violão), Sadraque Barreto é referência na Paraíba. Pós-graduado em Regência, Neurociências e Gestão, lidera a Orquestra Filarmônica do CEFEC e é Produtor do regional Lageiro Seco.
-                        <br />
-                        <br /> 
-                    Idealizador do Ponto de Cultura Palco Zé Ataíde e Campeão Nacional de Composição (2021), atua hoje como Diretor do Núcleo de Artes de Santa Rita. Sua trajetória une excelência técnica e impacto social, formando cidadãos através da arte.
+                    <p className='texto-bio'>
+                        Maestro, produtor cultural e multi-instrumentista, Sadraque é referência na música paraibana. Pós-graduado em Regência e Neurociências, ele lidera a Orquestra Filarmônica do CEFEC com uma filosofia única: a excelência técnica deve caminhar lado a lado com o impacto social.
+                        <br /><br />
+                        Idealizador do Ponto de Cultura Palco Zé Ataíde e Campeão Nacional de Composição (2021), sua batuta não rege apenas notas, mas constrói cidadania.
                     </p>
 
-                    <a href="https://www.instagram.com/maestrosadraque/" target='_blank' className='conheca-link'> CONHEÇA MAIS <span> → </span></a>
-                </section> 
-
+                    <div className="citacao-box">
+                        <p className="citacao-texto">"A música não é apenas arte para ser ouvida, é uma ferramenta poderosa para transformar realidades."</p>
+                    </div>
+                </div>
             </div>
 
-            <div className='content-maestro reverse'>
+            <div className='content-spalla'>
+                <div className="spalla-wrapper">
+                    <div className="spalla-info">
+                        <span className="label-cargo">SPALLA & LÍDER DE NAIPE</span>
+                        <h2 className="spalla-titulo">
+                            Joenderson <span>Batista</span>
+                        </h2>
+                        
+                        <p className="texto-spalla">
+                            O primeiro violino não é apenas um solista; é a voz que unifica as cordas. Como Spalla da OFC, Joenderson traz virtuosismo e uma liderança silenciosa e precisa.
+                            <br /><br />
+                            Sua trajetória, iniciada em 2018, é marcada por uma transição apaixonada do violão para o violino clássico. Hoje, ele personifica a disciplina e a emoção que a orquestra busca transmitir em cada concerto.
+                        </p>
 
-                <section className='maestro'>
-                    <div className="img-sadraque">
-                        <img src={jojo} alt="Foto do Spalla Joenderson" width={250}/>
+                        <span className="destaque-instrumento">Violino I • Desde 2018</span>
                     </div>
 
-                    <div className="frase-box box-spalla">
-                        <p className='frase'>"A música é a alma falando em segredo."</p>
-                        <p className='nome-frase'>- Joenderson Batista</p>
+                    <div className="spalla-visual">
+                        <img src={jojo} alt="Spalla Joenderson Batista" />
                     </div>
-                </section>
-
-                <section className='sobre'>
-
-                    <p className='quem-somos titulo-com-barra' id='nome-dourado'>LIDERANÇA DAS CORDAS</p>
-                    
-                    <h1>O Spalla <span>Joenderson</span></h1>
-
-                    <p className='texto-Sobre'>
-                        O primeiro violino não é apenas um solista; é a voz que unifica as cordas. 
-                        Como Spalla da Orquestra Filarmônica do Cefec, Joenderson traz virtuosismo e liderança.
-                        <br /><br /> 
-                        Desde 2018, Joenderson percorreu um caminho de descoberta, migrando do violão para o violino inspirado pela genialidade de Vivaldi. A ascensão ao posto de Spalla reflete o reconhecimento do Maestro Sadraque, que viu em sua técnica desenvolvida e em sua história com a orquestra as qualidades essenciais para liderar o naipe.
-                    </p>
-                </section> 
-
+                </div>
             </div>
-
 
         </div>
-
-        
-
-        
     )
 }
 
