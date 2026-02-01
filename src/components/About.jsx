@@ -11,7 +11,7 @@ function About() {
                     <div className="img-moldura">
                         <img src={sadraque} alt="Maestro Sadraque Barreto" />
                     </div>
-                    <div className="assinatura-maestro">Sadraque Barreto</div>
+                    <div className="assinatura-maestro">Maestro Sadraque</div>
                 </div>
 
                 <div className='maestro-info'>
