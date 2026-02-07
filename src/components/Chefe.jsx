@@ -1,39 +1,46 @@
 import "../style/chefe.css";
 
+import imgJojo from '../assets/musicosChefes/jojo.jpg';
+import imgEdrielson from '../assets/musicosChefes/edrielson.jpeg';
+import imgAlan from '../assets/musicosChefes/alan.jpeg';
+import imgAllyson from '../assets/musicosChefes/allyson.jpeg';
+import imgMatheus from '../assets/musicosChefes/matheus.jpg';
+import imgDudu from '../assets/musicosChefes/dudu.JPG';
+
 function Chefe() {
   const chefes = [
     {
-      imgChefe: "src/assets/musicosChefes/jojo.jpg",
+      imgChefe: imgJojo, 
       nome: "Joenderson Batista",
       instrumentoChefe: "dos Violinos",
       redeSocial: "joenderson_4040",
     },
     {
-      imgChefe: "src/assets/musicosChefes/edrielson.jpeg",
+      imgChefe: imgEdrielson,
       nome: "Edrielson Nunes",
       instrumentoChefe: "das Violas",
       redeSocial: "Edrielson_19",
     },
     {
-      imgChefe: "src/assets/musicosChefes/alan.jpeg",
+      imgChefe: imgAlan,
       nome: "Alan Pereira",
       instrumentoChefe: "dos Violoncelos",
       redeSocial: "allanpereiraof",
     },
     {
-      imgChefe: "src/assets/musicosChefes/allyson.jpeg",
+      imgChefe: imgAllyson,
       nome: "Allyson Medalha",
       instrumentoChefe: "do Sopro",
       redeSocial: "allysonkgm",
     },
     {
-      imgChefe: "src/assets/musicosChefes/matheus.jpg",
+      imgChefe: imgMatheus,
       nome: "Matheus Olegário",
       instrumentoChefe: "da Base",
       redeSocial: "matheus.h.olegario",
     },
     {
-      imgChefe: "src/assets/musicosChefes/dudu.jpg",
+      imgChefe: imgDudu,
       nome: "Edwardo Gomes",
       instrumentoChefe: "da Percussão",
       redeSocial: "Edwardo_gomes21",
