@@ -1,6 +1,6 @@
 import '../style/about.css'
 import sadraque from '../assets/IMG_1135.JPG'
-import jojo from '../assets/ImagemJojo.JPG'
+import jojo from '../assets/ImagemJojo.jpg'
 
 function About() {
     return(
